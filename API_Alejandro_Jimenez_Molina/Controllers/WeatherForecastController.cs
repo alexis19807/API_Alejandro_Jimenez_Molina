@@ -40,13 +40,13 @@ namespace API_Alejandro_Jimenez_Molina.Controllers
 		[HttpPut]
 		public SportMan UpdateSportMan()
 		{
-			return new Guid();
+			return new SportMan();
 		}
 
 		[HttpDelete]
 		public SportMan DeleteSportMan()
 		{
-			return new Guid();
+			return new SportMan();
 		}
 	}
 }
