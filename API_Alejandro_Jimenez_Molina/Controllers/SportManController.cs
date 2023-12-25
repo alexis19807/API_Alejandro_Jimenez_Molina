@@ -1,25 +1,25 @@
-using Application.ScoreWeigths.Create;
 using Application.Sportman.Create;
 using Application.Sportman.GetAll;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
+using System.Text;
 
 namespace API_Alejandro_Jimenez_Molina.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
+	[Authorize]
 	public class SportManController : ControllerBase
 	{
 		private IValidator<CreateSportmanCommand> _validator;
-		private readonly ILogger<SportManController> _logger;
 		private readonly IMediator _mediator;
 
-		public SportManController(ILogger<SportManController> logger,
-			IMediator mediator,
+		public SportManController(IMediator mediator,
 			IValidator<CreateSportmanCommand> validator)
 		{
-			_logger = logger;
 			_mediator = mediator;
 			_validator = validator;
 		}
@@ -39,12 +39,21 @@ namespace API_Alejandro_Jimenez_Molina.Controllers
 
 			if (!result.IsValid)
 			{
+				var stringBuilder = new StringBuilder();
+				stringBuilder.AppendLine($"Error creating sportman");
+
+				foreach (var error in result.Errors)
+				{
+					stringBuilder.AppendLine(error.ErrorMessage);
+				}
+
 				return BadRequest(new { Errors = result.Errors.Select(x => x.ErrorMessage) });
 			}
 
-			await _mediator.Send(command);
+			var guid = await _mediator.Send(command);
+			Log.Information($"Sportman created with Guid {guid}");
 
-			return Ok();
+			return Ok(new { SportmanId = guid });
 		}
 	}
 }

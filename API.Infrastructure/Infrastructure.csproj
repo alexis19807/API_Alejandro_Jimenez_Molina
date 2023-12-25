@@ -22,15 +22,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Serilog" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\API.Domain\Domain.csproj" />
     <ProjectReference Include="..\Application\Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using Domain.Primitives;
 using Domain.ScoreWeigths;
 using Domain.SportMen;
+using Domain.Users;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace Infrastructure
 
 			services.AddScoped<ISportManRepository, SportManRepository>();
 			services.AddScoped<IScoreWeigthRepository, ScoreWeigthRepository>();
+			services.AddScoped<ILoginRepository, LoginRepository>();
 
 			return services;
 		}

@@ -6,7 +6,7 @@ using MediatR;
 namespace Application.Sportman.Create
 {
     //Use CQRS with MediatR to have a layer for each operation to the database(insert. select...etc):This is for create SportMan
-    public class CreateSportmanCommandHandler : IRequestHandler<CreateSportmanCommand, Unit>
+    public class CreateSportmanCommandHandler : IRequestHandler<CreateSportmanCommand, Guid>
 	{
 		private readonly ISportManRepository _sportManRepository;
 		private readonly IUnitOfWork _unitOfWork;
@@ -17,7 +17,7 @@ namespace Application.Sportman.Create
 			_unitOfWork = unitOfWork;
 		}
 
-		public async Task<Unit> Handle(CreateSportmanCommand command, CancellationToken cancellationToken)
+		public async Task<Guid> Handle(CreateSportmanCommand command, CancellationToken cancellationToken)
 		{
 			var sportMan = new SportMan()
 			{
@@ -30,7 +30,7 @@ namespace Application.Sportman.Create
 
 			await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-			return Unit.Value;
+			return sportMan.Id;
 		}
 	}
 }

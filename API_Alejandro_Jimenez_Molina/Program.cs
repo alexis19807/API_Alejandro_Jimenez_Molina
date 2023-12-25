@@ -1,18 +1,16 @@
 using API_Alejandro_Jimenez_Molina;
 using API_Alejandro_Jimenez_Molina.Extensions;
 using Application;
-using Application.Sportman.Create;
-using Application.Validators;
-using FluentValidation;
 using Infrastructure;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddPresentation()
+builder.Services.AddPresentation(builder.Configuration)
 				.AddInfrastructure(builder.Configuration)
 				.AddApplication();
 
-builder.Services.AddScoped<IValidator<CreateSportmanCommand>, CreateSportManValidator>();
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 
@@ -23,7 +21,11 @@ if (app.Environment.IsDevelopment())
 	app.ApplyMigrations();
 }
 
+app.UseSerilogRequestLogging();
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

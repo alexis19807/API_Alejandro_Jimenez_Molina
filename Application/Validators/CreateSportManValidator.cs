@@ -13,7 +13,7 @@ namespace Application.Validators
 			RuleFor(x => x.country)
 				.NotEmpty()
 				.MaximumLength(3)
-				.WithMessage("Introduce a valid country");
+				.WithMessage("Country valid is required");
 
 			RuleFor(x => x.name)
 				.NotEmpty()

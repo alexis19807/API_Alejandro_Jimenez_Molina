@@ -1,6 +1,7 @@
 ﻿using Domain.ScoreWeigths;
 using Domain.SportMen;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -13,7 +14,17 @@ namespace Infrastructure.Persistence.Repositories
 			_context = context;
 		}
 
-		public async Task CreateSportMan(SportMan sportMan) => await _context.SportMan.AddAsync(sportMan);
+		public async Task CreateSportMan(SportMan sportMan)
+		{
+			try
+			{
+				await _context.SportMan.AddAsync(sportMan);
+			}
+			catch (Exception e)
+			{
+				Log.Error($"Error creating sportman in the database - {e.Message}");
+			}
+		}
 
 		public async Task<ICollection<SportMan>> GetAll()
 		{

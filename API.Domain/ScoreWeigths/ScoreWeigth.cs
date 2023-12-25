@@ -6,10 +6,10 @@ namespace Domain.ScoreWeigths
     {
         public Guid Id { get; set; }
         //Arranque
-        public int? Snatch { get; set; }
+        public int Snatch { get; set; }
         //Envion
-        public int? Jerk { get; set; }
-        public int TotalWeigth => Snatch ?? 0 + Jerk ?? 0;
+        public int Jerk { get; set; }
+        public int TotalWeigth => Snatch + Jerk;
         public Guid SportManId { get; set; }
         public SportMan SportMan { get; set; }
 

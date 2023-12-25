@@ -1,5 +1,4 @@
-﻿using Domain.ScoreWeigths;
-using Domain.SportMen;
+﻿using Domain.SportMen;
 using MediatR;
 
 namespace Application.Sportman.GetAll
@@ -13,21 +12,22 @@ namespace Application.Sportman.GetAll
 			_sportManRepository = sportManRepository;
 		}
 
-		public async Task<ICollection<GetSportManQueryResponse>> Handle(GetSportMenQuery command, CancellationToken cancellationToken)
+		//Using MediatR get each sportman with the best score of each category
+		public async Task<ICollection<GetSportManQueryResponse>> Handle(GetSportMenQuery query, CancellationToken cancellationToken)
 		{
 			var sportmen = new List<GetSportManQueryResponse>();
 
 			var result = await this._sportManRepository.GetAll();
 
-			foreach ( var item in result)
+			foreach (var item in result)
 			{
 				sportmen.Add(new GetSportManQueryResponse()
 				{
 					Id = item.Id,
 					Country = item.Country,
 					Name = item.Name,
-					Snatch = item.ScoreWeigths?.FirstOrDefault()?.Snatch,
-					Jerk = item.ScoreWeigths?.FirstOrDefault()?.Jerk
+					Snatch = item.ScoreWeigths.FirstOrDefault().Snatch,
+					Jerk = item.ScoreWeigths.FirstOrDefault().Jerk
 				});
 			}
 
