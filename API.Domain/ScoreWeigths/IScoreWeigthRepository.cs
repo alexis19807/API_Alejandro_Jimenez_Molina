@@ -1,6 +1,4 @@
-﻿using Domain.SportMen;
-
-namespace Domain.ScoreWeigths
+﻿namespace Domain.ScoreWeigths
 {
 	public interface IScoreWeigthRepository
 	{

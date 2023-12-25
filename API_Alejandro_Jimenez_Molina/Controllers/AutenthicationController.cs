@@ -47,7 +47,7 @@ namespace API_Alejandro_Jimenez_Molina.Controllers
 				Issuer = "https://localhost:7121/",
 				Audience = "https://localhost:7121/",
 				Subject = claims,
-				Expires = DateTime.UtcNow.AddMinutes(5),
+				Expires = DateTime.UtcNow.AddMinutes(20),
 				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256),
 			};
 
